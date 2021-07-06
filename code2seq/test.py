@@ -11,7 +11,7 @@ from utils.vocabulary import Vocabulary
 
 
 def load_code2seq(
-    checkpoint_path: str, config: DictConfig, vocabulary: Vocabulary
+        checkpoint_path: str, config: DictConfig, vocabulary: Vocabulary
 ) -> Tuple[Code2Seq, PathContextDataModule]:
     model = Code2Seq.load_from_checkpoint(checkpoint_path=checkpoint_path)
     data_module = PathContextDataModule(config, vocabulary)
@@ -19,7 +19,7 @@ def load_code2seq(
 
 
 def load_code2class(
-    checkpoint_path: str, config: DictConfig, vocabulary: Vocabulary
+        checkpoint_path: str, config: DictConfig, vocabulary: Vocabulary
 ) -> Tuple[Code2Class, PathContextDataModule]:
     model = Code2Class.load_from_checkpoint(checkpoint_path=checkpoint_path)
     data_module = PathContextDataModule(config, vocabulary)
@@ -27,7 +27,7 @@ def load_code2class(
 
 
 def load_typed_code2seq(
-    checkpoint_path: str, config: DictConfig, vocabulary: Vocabulary
+        checkpoint_path: str, config: DictConfig, vocabulary: Vocabulary
 ) -> Tuple[TypedCode2Seq, TypedPathContextDataModule]:
     model = TypedCode2Seq.load_from_checkpoint(checkpoint_path=checkpoint_path)
     data_module = TypedPathContextDataModule(config, vocabulary)
@@ -54,7 +54,12 @@ def test(checkpoint_path: str, data_folder: str = None, batch_size: int = None):
     seed_everything(config.seed)
     gpu = 1 if torch.cuda.is_available() else None
     trainer = Trainer(gpus=gpu)
-    trainer.test(model, datamodule=data_module)
+    return trainer.test(model, datamodule=data_module)
+
+
+def serialize_results(results):
+    for key in results.keys():
+        print(key, results[key])
 
 
 if __name__ == "__main__":
@@ -65,4 +70,5 @@ if __name__ == "__main__":
 
     args = arg_parser.parse_args()
 
-    test(args.checkpoint, args.data_folder, args.batch_size)
+    quality_metrics = test(args.checkpoint, args.data_folder, args.batch_size)
+    serialize_results(quality_metrics[0])
