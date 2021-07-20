@@ -31,5 +31,5 @@ class PrintEpochResultCallback(Callback):
                 continue
             group, metric = key.split("/")
             if group in metrics_to_print:
-                metrics_to_print[group].append(f"{metric}={round(value, 2)}")
-        print_table(metrics_to_print)
+                metrics_to_print[group].append(f"{metric}={value}")
+        # print_table(metrics_to_print)

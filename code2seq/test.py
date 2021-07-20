@@ -11,7 +11,7 @@ from utils.vocabulary import Vocabulary
 
 
 def load_code2seq(
-        checkpoint_path: str, config: DictConfig, vocabulary: Vocabulary
+    checkpoint_path: str, config: DictConfig, vocabulary: Vocabulary
 ) -> Tuple[Code2Seq, PathContextDataModule]:
     model = Code2Seq.load_from_checkpoint(checkpoint_path=checkpoint_path)
     data_module = PathContextDataModule(config, vocabulary)
@@ -19,7 +19,7 @@ def load_code2seq(
 
 
 def load_code2class(
-        checkpoint_path: str, config: DictConfig, vocabulary: Vocabulary
+    checkpoint_path: str, config: DictConfig, vocabulary: Vocabulary
 ) -> Tuple[Code2Class, PathContextDataModule]:
     model = Code2Class.load_from_checkpoint(checkpoint_path=checkpoint_path)
     data_module = PathContextDataModule(config, vocabulary)
@@ -27,7 +27,7 @@ def load_code2class(
 
 
 def load_typed_code2seq(
-        checkpoint_path: str, config: DictConfig, vocabulary: Vocabulary
+    checkpoint_path: str, config: DictConfig, vocabulary: Vocabulary
 ) -> Tuple[TypedCode2Seq, TypedPathContextDataModule]:
     model = TypedCode2Seq.load_from_checkpoint(checkpoint_path=checkpoint_path)
     data_module = TypedPathContextDataModule(config, vocabulary)
