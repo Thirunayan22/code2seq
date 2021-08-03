@@ -11,7 +11,6 @@ from code2seq.utils.vocabulary import Vocabulary
 
 
 class PathContextDataset(Dataset):
-
     _separator = "|"
 
     def __init__(self, data_file_path: str, config: DictConfig, vocabulary: Vocabulary, random_context: bool):
@@ -48,11 +47,11 @@ class PathContextDataset(Dataset):
 
     @staticmethod
     def _split_context(context: str) -> Dict[str, str]:
-        from_token, path_nodes, to_token = context.split(",")
+        tokens = context.split(",")
         return {
-            FROM_TOKEN: from_token,
-            PATH_NODES: path_nodes,
-            TO_TOKEN: to_token,
+            FROM_TOKEN: tokens[0],
+            PATH_NODES: tokens[1],
+            TO_TOKEN: tokens[2],
         }
 
     def __getitem__(self, index) -> Optional[PathContextSample]:
