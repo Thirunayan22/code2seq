@@ -123,7 +123,7 @@ class Code2Seq(LightningModule):
         statistic = PredictionStatistic(True, self._label_pad_id, self._metric_skip_tokens)
         statistic.update_statistic(batch.labels, prediction)
 
-        return {"loss": loss, "statistic": statistic}
+        return {"loss": loss, "statistic": statistic, "predictions": prediction}
 
     def test_step(self, batch: PathContextBatch, batch_idx: int) -> Dict:  # type: ignore
         return self.validation_step(batch, batch_idx)
@@ -134,6 +134,7 @@ class Code2Seq(LightningModule):
         with torch.no_grad():
             mean_loss = torch.stack([out["loss"] for out in outputs]).mean().item()
             statistic = PredictionStatistic.create_from_list([out["statistic"] for out in outputs])
+            predictions = [sample for out in outputs for sample in out["predictions"]]
             epoch_metrics = statistic.get_metric()
             log: Dict[str, Union[float, torch.Tensor]] = {f"{group}/loss": mean_loss}
             for key, value in epoch_metrics.items():
