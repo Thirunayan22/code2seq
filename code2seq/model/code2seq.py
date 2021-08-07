@@ -134,7 +134,6 @@ class Code2Seq(LightningModule):
         with torch.no_grad():
             mean_loss = torch.stack([out["loss"] for out in outputs]).mean().item()
             statistic = PredictionStatistic.create_from_list([out["statistic"] for out in outputs])
-            predictions = [sample for out in outputs for sample in out["predictions"]]
             epoch_metrics = statistic.get_metric()
             log: Dict[str, Union[float, torch.Tensor]] = {f"{group}/loss": mean_loss}
             for key, value in epoch_metrics.items():
