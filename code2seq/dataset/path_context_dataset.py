@@ -48,6 +48,8 @@ class PathContextDataset(Dataset):
     @staticmethod
     def _split_context(context: str) -> Dict[str, str]:
         tokens = context.split(",")
+        if len(tokens) != 3:
+            print(context)
         return {
             FROM_TOKEN: tokens[0],
             PATH_NODES: tokens[1],
@@ -78,7 +80,10 @@ class PathContextDataset(Dataset):
         )
 
         # convert each context to list of ints and then wrap into numpy array
-        splitted_contexts = [self._split_context(str_contexts[i]) for i in context_indexes]
+        try:
+            splitted_contexts = [self._split_context(str_contexts[i]) for i in context_indexes]
+        except:
+            print("Line #", index)
         contexts = {}
         for _cp in self._context_parts:
             str_values = [_sc[_cp.name] for _sc in splitted_contexts]
