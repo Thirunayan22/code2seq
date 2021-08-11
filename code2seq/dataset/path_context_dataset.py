@@ -48,7 +48,7 @@ class PathContextDataset(Dataset):
     @staticmethod
     def _split_context(context: str) -> Dict[str, str]:
         tokens = context.split(",")
-        if len(tokens) != 3:
+        if len(tokens) < 3:
             print(context)
         return {
             FROM_TOKEN: tokens[0],
