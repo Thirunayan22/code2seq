@@ -44,6 +44,8 @@ class PathContextDataModule(LightningDataModule):
     def setup(self, stage: Optional[str] = None):
         if not exists(join(self._data_dir, Vocabulary.vocab_filename)):
             print("Can't find vocabulary, collect it from train holdout")
+
+            # NOTE-Here the authors are taking each raw_sample from the .c2s datasets and then looping on it and adding it to the vocabulary
             build_from_scratch(join(self._data_dir, f"{self._train}.c2s"), Vocabulary)
         vocabulary_path = join(self._data_dir, Vocabulary.vocab_filename)
         self._vocabulary = Vocabulary(vocabulary_path, self._config.max_labels, self._config.max_tokens, self._is_class)
