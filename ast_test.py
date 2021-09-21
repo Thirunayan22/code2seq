@@ -26,8 +26,6 @@ from commode_utils.vocabulary import build_from_scratch
 # # paths = [self._get_path(raw_path.split(",")) for raw_path in raw_path_contexts]
 
 # print(raw_paths)  
-# TODO - 1 - Upload to ec2 instance and get preprocessed ast
-# TODO - 2 - Extract raw paths and pass into model
 
 def collate_wrapper(batch: List[Optional[LabeledPathContext]]) -> BatchedLabeledPathContext:
         return BatchedLabeledPathContext(batch)
@@ -68,7 +66,11 @@ dataloader = DataLoader(dataset,batch_size=1,collate_fn=collate_wrapper,pin_memo
 # print("PATH  : ",paths)
 
 # initializing model
-code2seq_model = Code2Seq(model_config=config.model,optimizer_config=config.optimizer,vocabulary=_vocabulary,teacher_forcing=config.train.teacher_forcing)
+pretrained_model_path  = "pretrained_model/pretrained_code2seq.ckpt"
+code2seq_model = Code2Seq(  model_config=config.model,
+                            optimizer_config=config.optimizer,
+                            vocabulary=_vocabulary,
+                            teacher_forcing=config.train.teacher_forcing).load_from_checkpoint(pretrained_model_path)
 
 
 
@@ -99,7 +101,9 @@ with torch.no_grad():
         None # target_sequence  (since we are running in inference mode)
     )
 
+    print("Model Architecture : ", code2seq_model)
     print("Model Output : ",model_output)
+    print("Model Output Shape: ", model_output.shape)
 
 
 

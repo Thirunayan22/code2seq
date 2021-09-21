@@ -15,3 +15,4 @@ code2seq.egg-info/
 dist/
 build/
 generated_dataset/
+pretrained_model/

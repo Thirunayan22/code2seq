@@ -50,6 +50,7 @@ class PathContextDataModule(LightningDataModule):
         vocabulary_path = join(self._data_dir, Vocabulary.vocab_filename)
         self._vocabulary = Vocabulary(vocabulary_path, self._config.max_labels, self._config.max_tokens, self._is_class)
 
+    # NOTE : Batch labelled path context is used here
     @staticmethod
     def collate_wrapper(batch: List[Optional[LabeledPathContext]]) -> BatchedLabeledPathContext:
         return BatchedLabeledPathContext(batch)
