@@ -33,8 +33,9 @@ def collate_wrapper(batch: List[Optional[LabeledPathContext]]) -> BatchedLabeled
 
 
 data_dir = "generated_dataset/"
+data_file_path = os.path.join(data_dir,"generated_ast_dataset.test.c2s")
 # data_file_path = os.path.join(data_dir,"train.c2s")
-data_file_path = os.path.join(data_dir,"val.c2s")
+# data_file_path = os.path.join(data_dir,"val.c2s")
 
 
 config = OmegaConf.load("config/code2seq-java-small.yaml")
@@ -106,10 +107,8 @@ with torch.no_grad():
     print("Model Output Shape: ", model_output.shape)
 
 
-
-
-
-
+if __name__ == "__main__":
+    print("Sample")
 
 
 
