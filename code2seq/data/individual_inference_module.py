@@ -1,4 +1,10 @@
 import os
+import sys
+
+RESEARCH_TOOLS_DIR = os.environ.get("RESEARCH_TOOLS_DIR")
+CODE2SEQ_PYTORCH_DIR = os.path.join(RESEARCH_TOOLS_DIR,"pytorch_code2seq","code2seq")
+sys.path.append(CODE2SEQ_PYTORCH_DIR)
+
 import torch
 from typing import List,Dict,Optional
 from omegaconf import DictConfig, OmegaConf
@@ -125,5 +131,5 @@ class IndividualInferenceModule:
 # TODO - 7 - create a new inference configuration with only configs needed for the dataloader
 # TODO - 8 - use get path method to get the ast paths - ✅
 # TODO - 9 - Retest model with preprocessed AST - ✅
-# TODO - 10 - Extract output of model from middle encoder layer - 
-# TODO - 11 - Extract output from preprocessing file
+# TODO - 10 - Extract output of model from middle encoder layer - ✅
+# TODO - 11 - Extract output from preprocessing file - ✅
