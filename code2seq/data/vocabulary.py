@@ -80,8 +80,8 @@ def convert_from_vanilla(vocabulary_path: str):
         counters[Vocabulary.NODE] = Counter(load(dict_file))
         counters[Vocabulary.LABEL] = Counter(load(dict_file))
 
-    for feature, counter in counters.items():
-        print(f"Count {len(counter)} {feature}, top-5: {counter.most_common(5)}")
+    # for feature, counter in counters.items():
+    #     print(f"Count {len(counter)} {feature}, top-5: {counter.most_common(5)}")
 
     dataset_dir = dirname(vocabulary_path)
     vocabulary_file = join(dataset_dir, Vocabulary.vocab_filename)
